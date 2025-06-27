@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1054604519673",
+    "project_id": "tuj-aim",
+    "storage_bucket": "tuj-aim.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054604519673:android:1b8193998db43c1ff35a28",
+        "android_client_info": {
+          "package_name": "com.example.aim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK-DaM2Ox7DjGETQqQpCL4H8YODCTlIXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
