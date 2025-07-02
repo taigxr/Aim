@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "213008760308",
+    "project_id": "aim4321",
+    "storage_bucket": "aim4321.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213008760308:android:1b1ebddbc71e6c24a68da1",
+        "android_client_info": {
+          "package_name": "com.example.aim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZYXsY0YA8jfmS0ZfaD8zFxmkaVV8J46Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

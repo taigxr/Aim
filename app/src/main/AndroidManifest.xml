@@ -17,6 +17,11 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Aim.NoActionBar">
+            
+        </activity>
+        <activity
+            android:name=".SignInActivity"
+            android:exported = "true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
