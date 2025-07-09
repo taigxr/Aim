@@ -2,6 +2,7 @@ package com.example.aim
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aim.databinding.SignInBinding
@@ -32,9 +33,13 @@ class SignInActivity : AppCompatActivity() {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
+                        Log.d("SignIn", "onStart reached")
+                        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
+                        Log.d("SignIn", "onStart reached")
+                        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show()
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
 
                     }
