@@ -1,0 +1,157 @@
+//dependencies
+dependencies {
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+//activity_mainxml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher" />
+
+    <Button
+        android:id="@+id/choose_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Image" />
+
+    <Button
+        android:id="@+id/upload_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Image" />
+
+    <Button
+        android:id="@+id/retrieve_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrieve Image" />
+</LinearLayout>
+
+//mainactivity
+import android.app.ProgressDialog
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.util.UUID
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var chooseImgBtn: Button
+    private lateinit var uploadImgBtn: Button
+    private lateinit var retrieveImgBtn: Button
+    private lateinit var imageView: ImageView
+    private var fileUri: Uri? = null
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        chooseImgBtn = findViewById(R.id.choose_image)
+        uploadImgBtn = findViewById(R.id.upload_image)
+        retrieveImgBtn = findViewById(R.id.retrieve_image)
+        imageView = findViewById(R.id.image_view)
+
+        // Initialize image picker launcher
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                fileUri = it
+                imageView.setImageURI(it)
+            }
+        }
+
+        chooseImgBtn.setOnClickListener {
+            imagePickerLauncher.launch("image/*")
+        }
+
+        uploadImgBtn.setOnClickListener {
+            if (fileUri != null) {
+                uploadImage()
+            } else {
+                Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        retrieveImgBtn.setOnClickListener {
+            retrieveImage("your_image_filename.jpg") // Replace with actual filename
+        }
+    }
+
+    private fun uploadImage() {
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Uploading Image...")
+        progressDialog.setMessage("Processing...")
+        progressDialog.show()
+
+        val fileName = UUID.randomUUID().toString() + ".jpg"
+        val ref = FirebaseStorage.getInstance().reference.child("images/$fileName")
+
+        ref.putFile(fileUri!!)
+            .addOnSuccessListener {
+                progressDialog.dismiss()
+                Toast.makeText(this, "Uploaded successfully", Toast.LENGTH_SHORT).show()
+
+                ref.downloadUrl.addOnSuccessListener { uri ->
+                    Log.d("DownloadURL", "URL: $uri")
+                    // Optionally store the URL in Firestore or Realtime DB here
+                }
+            }
+            .addOnFailureListener {
+                progressDialog.dismiss()
+                Toast.makeText(this, "Upload failed: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun retrieveImage(filename: String) {
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setTitle("Retrieving Image...")
+        progressDialog.setMessage("Processing...")
+        progressDialog.show()
+
+        val imageRef: StorageReference = FirebaseStorage.getInstance().reference.child("images/$filename")
+
+        imageRef.downloadUrl
+            .addOnSuccessListener { uri: Uri ->
+                Glide.with(this)
+                    .load(uri)
+                    .into(imageView)
+
+                progressDialog.dismiss()
+                Toast.makeText(this, "Image retrieved successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                progressDialog.dismiss()
+                Toast.makeText(this, "Failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+}
