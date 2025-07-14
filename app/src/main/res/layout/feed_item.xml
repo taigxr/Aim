@@ -7,22 +7,20 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!-- Profile picture -->
-
-    <!-- Username -->
-
     <ImageView
         android:id="@+id/f_pfp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_edges"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/f_image_card"
         app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <!-- Image -->
-
-    <!-- Caption -->
     <TextView
         android:id="@+id/f_username"
         android:layout_width="278dp"
@@ -31,19 +29,9 @@
         android:text="Username"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toEndOf="@id/f_pfp"
         app:layout_constraintTop_toTopOf="@id/f_pfp" />
-
-    <ImageView
-        android:id="@+id/f_image"
-        android:layout_width="416dp"
-        android:layout_height="417dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/f_pfp"
-        app:srcCompat="@drawable/img_8930" />
 
     <TextView
         android:id="@+id/f_caption"
@@ -56,7 +44,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/f_image"
+        app:layout_constraintTop_toBottomOf="@id/f_image_card"
         app:layout_constraintVertical_bias="0.0" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/f_image_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintTop_toBottomOf="@id/f_pfp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHeight_default="wrap"
+    app:layout_constraintBottom_toTopOf="@id/f_caption">
+
+    <ImageView
+        android:id="@+id/f_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_8930" />
+</androidx.cardview.widget.CardView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
