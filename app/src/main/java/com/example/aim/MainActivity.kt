@@ -14,7 +14,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aim.databinding.ActivityMainBinding
@@ -60,10 +62,23 @@ class MainActivity : AppCompatActivity() {
                 "Hello this is a post",
                 R.drawable.img_8930,
                 R.drawable.ic_launcher_background
+
+
+                //for # of friends in friends list
+                //grab most recent picture, user name, caption from most recent post, and user pfp
+                //add to feed
             )
         }
     }
 
+}
+
+
+@Preview
+@Composable
+fun testing()
+{
+    Text(text = "hello")
 }
 
 

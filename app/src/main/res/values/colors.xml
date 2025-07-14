@@ -7,6 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="aimcolor">#1098f7</color>
+    <color name="aimdarkgrey">#474448</color>
+    <color name="aimlightgrey">#e6e6e9</color>
+    <color name="aimwhite">#f4f4f6</color>
+    <color name="aimblack">#000000</color>
+
+
+
+
+
 
     <color name="blue">#1492ff</color>
 </resources>

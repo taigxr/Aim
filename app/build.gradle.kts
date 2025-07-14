@@ -2,11 +2,26 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" // this version matches your Kotlin version
+
 }
 
 android {
     namespace = "com.example.aim"
     compileSdk = 36
+    buildFeatures {
+        compose = true    // enable Compose
+        viewBinding = true  // you already have this
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.6.4" // or your Compose compiler version
+    }
+
+    kotlinOptions {
+        jvmTarget = "11" // you have this already
+    }
+
 
     defaultConfig {
         applicationId = "com.example.aim"
@@ -54,7 +69,19 @@ dependencies {
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.ui.tooling.preview.android)
     implementation(libs.androidx.cardview)
+    implementation(libs.androidx.foundation.android)
+    implementation(libs.androidx.material3.android)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.compose.ui:ui:1.6.4")
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.4")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.6.4")
+
+
+
 }
