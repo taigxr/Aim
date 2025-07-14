@@ -55,7 +55,15 @@ android {
 }
 
 dependencies {
+    // Firebase BoM first
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
 
+    // Firebase libraries without explicit versions (managed by BoM)
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+
+    // Your other libraries (keep these as is)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -64,24 +72,21 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.firebase.auth)
     implementation(libs.androidx.runtime.android)
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.ui.tooling.preview.android)
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.foundation.android)
     implementation(libs.androidx.material3.android)
-    implementation(libs.firebase.storage)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.compose.ui:ui:1.6.4")
     implementation("androidx.compose.material3:material3:1.2.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.4")
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.4")
-
-
-
 }

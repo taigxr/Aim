@@ -6,6 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aim.databinding.SignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -36,6 +39,7 @@ class SignUpActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             val intent = Intent(this, SignInActivity::class.java)
                             startActivity(intent)
+                            createUserDocumentInFirestore(email, pass)
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
 
@@ -50,4 +54,24 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+}
+private fun createUserDocumentInFirestore(uid: String, email: String) {
+    val db = Firebase.firestore
+
+    val defaultUsername = email.substringBefore("@")
+
+    val userData = hashMapOf(
+        "profile" to hashMapOf(
+            "email" to email,
+            "username" to defaultUsername
+        ),
+        "incomingRequests" to listOf<String>(),
+        "outgoingRequests" to listOf<String>(),
+        "friends" to listOf<String>()
+    )
+
+    db.collection("users")
+        .document(uid)
+        .set(userData)
+
 }

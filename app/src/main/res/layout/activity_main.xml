@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     android:background="@color/aimlightgrey">
 
+    <Button
+        android:id="@+id/button_find_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="64dp"
+        android:text="Find Friends" />
+
+    <Button
+        android:id="@+id/button_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Logout" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/feed_rv"
         tools:listitem="@layout/feed_item"
