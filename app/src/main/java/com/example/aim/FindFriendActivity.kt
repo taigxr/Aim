@@ -34,16 +34,8 @@ class FindFriendsActivity : AppCompatActivity() {
             }
         }
 
-
-        sendRequestButton.setOnClickListener {
-            foundUserId?.let { targetUserId ->
-                sendFriendRequest(targetUserId)
-            }
-        }
-
         listenToIncomingFriendRequests()
         listenToFriends()
-
     }
 
     private fun searchForUser(username: String) {
@@ -86,14 +78,20 @@ class FindFriendsActivity : AppCompatActivity() {
         currentUserRef.update("outgoingRequests", FieldValue.arrayUnion(toUserId))
         toUserRef.update("incomingRequests", FieldValue.arrayUnion(currentUserId))
             .addOnSuccessListener {
-
-                Toast.makeText(this, "Friend request accepted!", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error accepting request: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Request sent!", Toast.LENGTH_SHORT).show()
             }
     }
 
+    private fun acceptFriendRequest(senderUID: String) {
+        val currentUserRef = db.collection("users").document(currentUserId)
+        val senderRef = db.collection("users").document(senderUID)
+
+        currentUserRef.update("incomingRequests", FieldValue.arrayRemove(senderUID))
+        senderRef.update("outgoingRequests", FieldValue.arrayRemove(currentUserId))
+
+        currentUserRef.update("friends", FieldValue.arrayUnion(senderUID))
+        senderRef.update("friends", FieldValue.arrayUnion(currentUserId))
+            .addOnSuccessListener {
                 Toast.makeText(this, "Friend added!", Toast.LENGTH_SHORT).show()
             }
     }
