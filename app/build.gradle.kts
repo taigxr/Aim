@@ -64,6 +64,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx")
 
     // Your other libraries (keep these as is)
+    implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

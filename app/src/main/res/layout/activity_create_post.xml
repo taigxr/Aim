@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Image preview -->
+    <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:background="#DDD"
+        android:contentDescription="Selected Image Preview" />
+
+    <!-- Button to select image -->
+    <Button
+        android:id="@+id/selectImageButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Image"
+        android:layout_marginTop="12dp" />
+
+    <!-- Caption input -->
+    <EditText
+        android:id="@+id/captionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write a caption..."
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:maxLines="5"
+        android:gravity="top"
+        android:layout_marginTop="12dp"
+        android:padding="8dp"
+        android:background="@android:drawable/edit_text" />
+
+    <!-- Upload post button -->
+    <Button
+        android:id="@+id/uploadPostButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Post"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
