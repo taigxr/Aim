@@ -45,8 +45,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomBar.calenderButton.setOnClickListener{
 
+            startActivity(Intent(this, WorkoutDaysActivity::class.java))
+
         }
         binding.bottomBar.cameraButton.setOnClickListener{
+            startActivity(Intent(this, CreatePostActivity::class.java))
 
         }
         binding.bottomBar.socialButton.setOnClickListener{
@@ -55,9 +58,8 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         binding.bottomBar.userButton.setOnClickListener{
-            val intent = Intent(this, UserProfile::class.java)
-            startActivity(intent)
-            finish()
+            startActivity(Intent(this, MyStreakActivity::class.java))
+
         }
 
         loadFriendsPosts()

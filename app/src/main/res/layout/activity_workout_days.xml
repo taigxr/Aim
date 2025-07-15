@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="Select Workout Days:"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <CheckBox android:id="@+id/checkbox_monday" android:text="Monday"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <CheckBox android:id="@+id/checkbox_tuesday" android:text="Tuesday"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <CheckBox android:id="@+id/checkbox_wednesday" android:text="Wednesday"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <CheckBox android:id="@+id/checkbox_thursday" android:text="Thursday"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <CheckBox android:id="@+id/checkbox_friday" android:text="Friday"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <CheckBox android:id="@+id/checkbox_saturday" android:text="Saturday"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <CheckBox android:id="@+id/checkbox_sunday" android:text="Sunday"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_save_days"
+            android:text="Save Workout Days"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_test_photo"
+            android:text="Simulate Photo Upload"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</ScrollView>

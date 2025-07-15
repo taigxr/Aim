@@ -4,18 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="82dp"
+    android:background="@color/aimdarkgrey">
 
     <!-- Image preview -->
+
+    <!-- Button to select image -->
     <ImageView
         android:id="@+id/imagePreview"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:background="#DDD"
-        android:contentDescription="Selected Image Preview" />
+        android:background="@color/aimlightgrey"
+        android:contentDescription="Selected Image Preview"
+        android:scaleType="centerCrop" />
 
-    <!-- Button to select image -->
     <Button
         android:id="@+id/selectImageButton"
         android:layout_width="match_parent"
@@ -35,7 +37,8 @@
         android:gravity="top"
         android:layout_marginTop="12dp"
         android:padding="8dp"
-        android:background="@android:drawable/edit_text" />
+        android:background="@android:drawable/edit_text"
+        android:textColor="@color/black"/>
 
     <!-- Upload post button -->
     <Button

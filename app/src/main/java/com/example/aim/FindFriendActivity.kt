@@ -1,11 +1,9 @@
 package com.example.aim
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aim.databinding.ActivityFindFriendsBinding
-import com.example.aim.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -36,9 +34,16 @@ class FindFriendsActivity : AppCompatActivity() {
             }
         }
 
-        // 🔁 Start real-time listeners
+
+        sendRequestButton.setOnClickListener {
+            foundUserId?.let { targetUserId ->
+                sendFriendRequest(targetUserId)
+            }
+        }
+
         listenToIncomingFriendRequests()
         listenToFriends()
+
     }
 
     private fun searchForUser(username: String) {
@@ -81,28 +86,21 @@ class FindFriendsActivity : AppCompatActivity() {
         currentUserRef.update("outgoingRequests", FieldValue.arrayUnion(toUserId))
         toUserRef.update("incomingRequests", FieldValue.arrayUnion(currentUserId))
             .addOnSuccessListener {
-                Toast.makeText(this, "Request sent!", Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this, "Friend request accepted!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error accepting request: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun acceptFriendRequest(senderUID: String) {
-        val currentUserRef = db.collection("users").document(currentUserId)
-        val senderRef = db.collection("users").document(senderUID)
-
-        currentUserRef.update("incomingRequests", FieldValue.arrayRemove(senderUID))
-        senderRef.update("outgoingRequests", FieldValue.arrayRemove(currentUserId))
-
-        currentUserRef.update("friends", FieldValue.arrayUnion(senderUID))
-        senderRef.update("friends", FieldValue.arrayUnion(currentUserId))
-            .addOnSuccessListener {
                 Toast.makeText(this, "Friend added!", Toast.LENGTH_SHORT).show()
-                // No need to call load again — snapshot listeners handle that!
             }
     }
 
     private fun listenToIncomingFriendRequests() {
         db.collection("users").document(currentUserId)
-            .addSnapshotListener { snapshot, e ->
+            .addSnapshotListener { snapshot, _ ->
                 if (snapshot != null && snapshot.exists()) {
                     val incoming = snapshot.get("incomingRequests") as? List<String> ?: emptyList()
                     incomingRequestsContainer.removeAllViews()
@@ -125,7 +123,7 @@ class FindFriendsActivity : AppCompatActivity() {
 
     private fun listenToFriends() {
         db.collection("users").document(currentUserId)
-            .addSnapshotListener { snapshot, e ->
+            .addSnapshotListener { snapshot, _ ->
                 if (snapshot != null && snapshot.exists()) {
                     val friends = snapshot.get("friends") as? List<String> ?: emptyList()
                     friendsContainer.removeAllViews()
@@ -134,8 +132,12 @@ class FindFriendsActivity : AppCompatActivity() {
                         db.collection("users").document(friendId).get()
                             .addOnSuccessListener { friendDoc ->
                                 val username = (friendDoc["profile"] as? Map<*, *>)?.get("username") as? String ?: "Friend"
+                                val streak = (friendDoc.getLong("workoutStreak") ?: 0).toInt()
+
                                 val view = layoutInflater.inflate(R.layout.item_friend, friendsContainer, false)
                                 view.findViewById<TextView>(R.id.friend_username_text).text = username
+                                view.findViewById<TextView>(R.id.streak).text = "Day streak: $streak"
+
                                 friendsContainer.addView(view)
                             }
                     }

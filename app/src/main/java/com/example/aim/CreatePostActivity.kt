@@ -11,9 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.DayOfWeek
 
 class CreatePostActivity : AppCompatActivity() {
 
@@ -71,6 +75,7 @@ class CreatePostActivity : AppCompatActivity() {
                         savePostMetadataToFirestore(userId, uri.toString(), caption,
                             onSuccess = {
                                 Toast.makeText(this, "Post uploaded!", Toast.LENGTH_SHORT).show()
+                                handleWorkoutStreak(LocalDate.now())
                                 finish()
                             },
                             onFailure = { e ->
@@ -106,4 +111,41 @@ class CreatePostActivity : AppCompatActivity() {
             .addOnSuccessListener { onSuccess() }
             .addOnFailureListener { e -> onFailure(e) }
     }
+
+    fun handleWorkoutStreak(photoUploadDate: LocalDate) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val userRef = FirebaseFirestore.getInstance().collection("users").document(userId)
+
+        userRef.get().addOnSuccessListener { doc ->
+            val workoutDays = doc.get("workoutDays") as? List<String> ?: return@addOnSuccessListener
+            val streak = doc.getLong("streak") ?: 0
+            val lastWorkoutDateStr = doc.getString("lastWorkoutDate")
+            val lastWorkoutDate = lastWorkoutDateStr?.let { LocalDate.parse(it) }
+
+            val today = photoUploadDate.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() } // e.g. "Monday"
+
+            if (workoutDays.contains(today)) {
+                if (lastWorkoutDate != null && lastWorkoutDate == photoUploadDate.minusDays(1)) {
+                    // Continue streak
+                    userRef.update(
+                        mapOf(
+                            "streak" to streak + 1,
+                            "lastWorkoutDate" to photoUploadDate.toString()
+                        )
+                    )
+                } else if (lastWorkoutDate != photoUploadDate) {
+                    // New streak or reset
+                    userRef.update(
+                        mapOf(
+                            "streak" to 1,
+                            "lastWorkoutDate" to photoUploadDate.toString()
+                        )
+                    )
+                }
+            }
+        }
+    }
+
 }
+
+

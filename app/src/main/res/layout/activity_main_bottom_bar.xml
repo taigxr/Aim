@@ -4,21 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="72dp"
     tools:context=".MainActivity"
     android:orientation="horizontal"
     android:gravity="center"
     android:layout_gravity="bottom"
-    android:background="@color/white"
-    android:padding="6dp">
-
+    android:background="?colorOnPrimary">
 
     <ImageButton
         android:id="@+id/calender_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="@color/white"
+        android:background="@color/aimwhite"
         android:src="@drawable/ic_calendar"
         android:scaleType="centerInside">
     </ImageButton>
@@ -27,30 +25,27 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="@color/white"
+        android:background="@color/aimwhite"
         android:src="@drawable/ic_camera"
-        android:scaleType="centerInside"
-        >
+        android:scaleType="centerInside">
     </ImageButton>
     <ImageButton
         android:id="@+id/social_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="@color/white"
+        android:background="@color/aimwhite"
         android:src="@drawable/ic_social"
-        android:scaleType="centerInside"
-        android:contentDescription="social">
+        android:scaleType="centerInside">
     </ImageButton>
     <ImageButton
         android:id="@+id/user_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="@color/white"
+        android:background="@color/aimwhite"
         android:src="@drawable/ic_user"
-        android:scaleType="centerInside"
-        android:contentDescription="user">
+        android:scaleType="centerInside">
     </ImageButton>
 
 

@@ -70,7 +70,7 @@
             android:layout_marginStart="15dp"
             android:layout_toRightOf="@+id/pfp_layout"
             android:includeFontPadding="false"
-            android:text="taimoor_sikander"
+            android:text="user"
             android:textSize="20dp" />
 
     </RelativeLayout>
