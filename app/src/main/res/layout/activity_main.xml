@@ -10,15 +10,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/feed_rv"
-<<<<<<< Updated upstream
-        tools:listitem="@layout/feed_item"
-=======
         android:paddingVertical="24dp"
-
->>>>>>> Stashed changes
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/feed_item" />
+
     <include layout="@layout/activity_main_bottom_bar"
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
