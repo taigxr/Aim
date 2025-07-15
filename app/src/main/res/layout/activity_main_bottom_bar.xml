@@ -18,7 +18,8 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:background="null"
-        android:src="@drawable/ic_menu_camera"
+        android:src="@drawable/ic_home"
+        android:scaleType="centerInside"
         android:contentDescription="home">
     </ImageButton>
     <ImageButton
@@ -27,7 +28,8 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:background="null"
-        android:src="@drawable/ic_menu_camera"
+        android:src="@drawable/ic_calendar"
+        android:scaleType="centerInside"
         android:contentDescription="calender">
     </ImageButton>
     <ImageButton
@@ -36,7 +38,8 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:background="null"
-        android:src="@drawable/ic_menu_camera"
+        android:src="@drawable/ic_camera"
+        android:scaleType="centerInside"
         android:contentDescription="camera">
     </ImageButton>
     <ImageButton
@@ -45,7 +48,8 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:background="null"
-        android:src="@drawable/ic_menu_camera"
+        android:src="@drawable/ic_social"
+        android:scaleType="centerInside"
         android:contentDescription="social">
     </ImageButton>
     <ImageButton
@@ -54,7 +58,8 @@
         android:layout_height="48dp"
         android:layout_weight="1"
         android:background="null"
-        android:src="@drawable/ic_menu_camera"
+        android:src="@drawable/ic_user"
+        android:scaleType="centerInside"
         android:contentDescription="user">
     </ImageButton>
 

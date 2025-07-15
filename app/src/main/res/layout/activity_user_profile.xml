@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserProfile"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="?colorPrimary"
+        android:padding="20dp">
+        <FrameLayout
+            android:id="@+id/pfp_layout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp">
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/default_avatar" />
+            <ImageView
+                android:id="@+id/camera_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/ic_camera"
+                android:background="@drawable/white_circle_background"
+                android:padding="4dp" />
+        </FrameLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="Anonymous Athlete"
+            android:id="@+id/full_name_profile"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@+id/pfp_layout"
+            android:layout_marginTop="25dp"
+            app:boxBackgroundMode="none">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/full_name_edit_text"
+                android:includeFontPadding="false"
+                android:gravity="center_vertical"
+                android:drawablePadding="10dp"
+                android:textSize="20dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@android:color/transparent"
+                android:enabled="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:id="@+id/edit_name_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignEnd="@id/full_name_profile"
+            android:src="@drawable/ic_edit"
+            android:layout_centerVertical="true"
+            android:contentDescription="Edit"
+            />
+        <TextView
+            android:id="@+id/user_account_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/full_name_profile"
+            android:layout_marginStart="15dp"
+            android:layout_toRightOf="@+id/pfp_layout"
+            android:includeFontPadding="false"
+            android:text="taimoor_sikander"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/button_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:text = "Log out"
+        android:textSize="20dp">
+
+    </TextView>
+        <include layout="@layout/activity_main_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    </LinearLayout>

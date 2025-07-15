@@ -47,21 +47,29 @@ class MainActivity : AppCompatActivity() {
 
         postToFeed()
 
-        val findFriendsButton: Button = findViewById(R.id.button_find_friends)
-        findFriendsButton.setOnClickListener {
-            val intent = Intent(this, FindFriendsActivity::class.java)
-            startActivity(intent)
-        }
-        val logoutButton: Button = findViewById(R.id.button_logout)
-        logoutButton.setOnClickListener {
-            val intent = Intent(this, SignInActivity::class.java)
-            startActivity(intent)
-        }
-
         val recyclerView = findViewById<RecyclerView>(R.id.feed_rv)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = RecyclerAdapter(usernameList, captionsList, imageList, pfpList)
 
+        binding.bottomBar.homeButton.setOnClickListener{
+
+        }
+        binding.bottomBar.calenderButton.setOnClickListener{
+
+        }
+        binding.bottomBar.cameraButton.setOnClickListener{
+
+        }
+        binding.bottomBar.socialButton.setOnClickListener{
+            val intent = Intent(this, FindFriendsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.bottomBar.userButton.setOnClickListener{
+            val intent = Intent(this, UserProfile::class.java)
+            startActivity(intent)
+            finish()
+        }
 
     }
 

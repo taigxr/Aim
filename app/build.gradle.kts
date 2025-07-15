@@ -2,24 +2,26 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0" // this version matches your Kotlin version
 
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.21" // this version matches your Kotlin version
+    kotlin("kapt")
 }
 
 android {
     namespace = "com.example.aim"
     compileSdk = 36
+
     buildFeatures {
-        compose = true    // enable Compose
-        viewBinding = true  // you already have this
+        compose = true
+        viewBinding = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.6.4" // or your Compose compiler version
+        kotlinCompilerExtensionVersion = "1.6.4"
     }
 
     kotlinOptions {
-        jvmTarget = "11" // you have this already
+        jvmTarget = "11"
     }
 
 
@@ -49,9 +51,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
@@ -75,10 +74,14 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.androidx.runtime.android)
     implementation(libs.androidx.camera.core)
-    implementation(libs.androidx.ui.tooling.preview.android)
+    implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.foundation.android)
-    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.material3)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.androidx.media3.common.ktx)
     implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -127,4 +130,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    implementation(libs.glide)
+    kapt(libs.compiler)
 }
