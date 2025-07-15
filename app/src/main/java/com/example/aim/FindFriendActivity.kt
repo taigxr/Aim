@@ -1,11 +1,9 @@
 package com.example.aim
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aim.databinding.ActivityFindFriendsBinding
-import com.example.aim.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.SetOptions
@@ -74,11 +72,16 @@ class FindFriendsActivity : AppCompatActivity() {
             }
         }
 
+<<<<<<< Updated upstream
         sendRequestButton.setOnClickListener {
             foundUserId?.let { targetUserId ->
                 sendFriendRequest(targetUserId)
             }
         }
+=======
+        listenToIncomingFriendRequests()
+        listenToFriends()
+>>>>>>> Stashed changes
     }
 
     private fun searchUserByEmail(email: String) {
@@ -233,6 +236,7 @@ class FindFriendsActivity : AppCompatActivity() {
         currentUserRef.update("friends", FieldValue.arrayUnion(senderUID))
         senderUserRef.update("friends", FieldValue.arrayUnion(currentUserId))
             .addOnSuccessListener {
+<<<<<<< Updated upstream
                 Toast.makeText(this, "Friend request accepted!", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
@@ -240,4 +244,56 @@ class FindFriendsActivity : AppCompatActivity() {
             }
     }
 
+=======
+                Toast.makeText(this, "Friend added!", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun listenToIncomingFriendRequests() {
+        db.collection("users").document(currentUserId)
+            .addSnapshotListener { snapshot, _ ->
+                if (snapshot != null && snapshot.exists()) {
+                    val incoming = snapshot.get("incomingRequests") as? List<String> ?: emptyList()
+                    incomingRequestsContainer.removeAllViews()
+
+                    for (senderId in incoming) {
+                        db.collection("users").document(senderId).get()
+                            .addOnSuccessListener { senderDoc ->
+                                val username = (senderDoc["profile"] as? Map<*, *>)?.get("username") as? String ?: "Unknown"
+                                val view = layoutInflater.inflate(R.layout.item_friend_request, incomingRequestsContainer, false)
+                                view.findViewById<TextView>(R.id.username_text).text = username
+                                view.findViewById<Button>(R.id.accept_button).setOnClickListener {
+                                    acceptFriendRequest(senderId)
+                                }
+                                incomingRequestsContainer.addView(view)
+                            }
+                    }
+                }
+            }
+    }
+
+    private fun listenToFriends() {
+        db.collection("users").document(currentUserId)
+            .addSnapshotListener { snapshot, _ ->
+                if (snapshot != null && snapshot.exists()) {
+                    val friends = snapshot.get("friends") as? List<String> ?: emptyList()
+                    friendsContainer.removeAllViews()
+
+                    for (friendId in friends) {
+                        db.collection("users").document(friendId).get()
+                            .addOnSuccessListener { friendDoc ->
+                                val username = (friendDoc["profile"] as? Map<*, *>)?.get("username") as? String ?: "Friend"
+                                val streak = (friendDoc.getLong("workoutStreak") ?: 0).toInt()
+
+                                val view = layoutInflater.inflate(R.layout.item_friend, friendsContainer, false)
+                                view.findViewById<TextView>(R.id.friend_username_text).text = username
+                                view.findViewById<TextView>(R.id.streak).text = "Day streak: $streak"
+
+                                friendsContainer.addView(view)
+                            }
+                    }
+                }
+            }
+    }
+>>>>>>> Stashed changes
 }

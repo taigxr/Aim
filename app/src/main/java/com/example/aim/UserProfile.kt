@@ -63,11 +63,7 @@ class UserProfile : AppCompatActivity() {
                 }
         }
 
-        binding.bottomBar.homeButton.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+
         binding.bottomBar.calenderButton.setOnClickListener{
 
         }
