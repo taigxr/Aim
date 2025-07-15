@@ -42,9 +42,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        binding.bottomBar.homeButton.setOnClickListener{
 
-        }
         binding.bottomBar.calenderButton.setOnClickListener{
 
         }

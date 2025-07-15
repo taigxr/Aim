@@ -9,45 +9,35 @@
     android:orientation="horizontal"
     android:gravity="center"
     android:layout_gravity="bottom"
-    android:background="?colorOnPrimary"
+    android:background="@color/white"
     android:padding="6dp">
 
-    <ImageButton
-        android:id="@+id/home_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_weight="1"
-        android:background="null"
-        android:src="@drawable/ic_home"
-        android:scaleType="centerInside"
-        android:contentDescription="home">
-    </ImageButton>
+
     <ImageButton
         android:id="@+id/calender_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="null"
+        android:background="@color/white"
         android:src="@drawable/ic_calendar"
-        android:scaleType="centerInside"
-        android:contentDescription="calender">
+        android:scaleType="centerInside">
     </ImageButton>
     <ImageButton
         android:id="@+id/camera_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="null"
+        android:background="@color/white"
         android:src="@drawable/ic_camera"
         android:scaleType="centerInside"
-        android:contentDescription="camera">
+        >
     </ImageButton>
     <ImageButton
         android:id="@+id/social_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="null"
+        android:background="@color/white"
         android:src="@drawable/ic_social"
         android:scaleType="centerInside"
         android:contentDescription="social">
@@ -57,7 +47,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_weight="1"
-        android:background="null"
+        android:background="@color/white"
         android:src="@drawable/ic_user"
         android:scaleType="centerInside"
         android:contentDescription="user">
