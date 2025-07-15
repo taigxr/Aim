@@ -3,7 +3,6 @@ package com.example.aim
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.aim.databinding.ActivityFindFriendsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -15,8 +14,10 @@ class FindFriendsActivity : AppCompatActivity() {
     private lateinit var searchButton: Button
     private lateinit var incomingRequestsContainer: LinearLayout
     private lateinit var friendsContainer: LinearLayout
+
     private val db = Firebase.firestore
-    private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+    private val currentUserId: String
+        get() = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,8 @@ class FindFriendsActivity : AppCompatActivity() {
             val query = searchEditText.text.toString().trim()
             if (query.isNotEmpty()) {
                 searchForUser(query)
+            } else {
+                Toast.makeText(this, "Enter a username to search", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -57,17 +60,24 @@ class FindFriendsActivity : AppCompatActivity() {
                             val friends = myDoc.get("friends") as? List<String> ?: emptyList()
                             val outgoing = myDoc.get("outgoingRequests") as? List<String> ?: emptyList()
 
-                            if (friends.contains(userId)) {
-                                Toast.makeText(this, "Already your friend", Toast.LENGTH_SHORT).show()
-                            } else if (outgoing.contains(userId)) {
-                                Toast.makeText(this, "Request already sent", Toast.LENGTH_SHORT).show()
-                            } else {
-                                sendFriendRequest(userId)
+                            when {
+                                friends.contains(userId) -> {
+                                    Toast.makeText(this, "Already your friend", Toast.LENGTH_SHORT).show()
+                                }
+                                outgoing.contains(userId) -> {
+                                    Toast.makeText(this, "Request already sent", Toast.LENGTH_SHORT).show()
+                                }
+                                else -> {
+                                    sendFriendRequest(userId)
+                                }
                             }
                         }
                 } else {
                     Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
                 }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -79,6 +89,9 @@ class FindFriendsActivity : AppCompatActivity() {
         toUserRef.update("incomingRequests", FieldValue.arrayUnion(currentUserId))
             .addOnSuccessListener {
                 Toast.makeText(this, "Request sent!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to send request: ${it.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -94,6 +107,9 @@ class FindFriendsActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Toast.makeText(this, "Friend added!", Toast.LENGTH_SHORT).show()
             }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error adding friend: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun listenToIncomingFriendRequests() {
@@ -102,6 +118,14 @@ class FindFriendsActivity : AppCompatActivity() {
                 if (snapshot != null && snapshot.exists()) {
                     val incoming = snapshot.get("incomingRequests") as? List<String> ?: emptyList()
                     incomingRequestsContainer.removeAllViews()
+
+                    if (incoming.isEmpty()) {
+                        val emptyText = TextView(this).apply {
+                            text = "No incoming requests"
+                        }
+                        incomingRequestsContainer.addView(emptyText)
+                        return@addSnapshotListener
+                    }
 
                     for (senderId in incoming) {
                         db.collection("users").document(senderId).get()
@@ -125,6 +149,14 @@ class FindFriendsActivity : AppCompatActivity() {
                 if (snapshot != null && snapshot.exists()) {
                     val friends = snapshot.get("friends") as? List<String> ?: emptyList()
                     friendsContainer.removeAllViews()
+
+                    if (friends.isEmpty()) {
+                        val emptyText = TextView(this).apply {
+                            text = "You have no friends yet"
+                        }
+                        friendsContainer.addView(emptyText)
+                        return@addSnapshotListener
+                    }
 
                     for (friendId in friends) {
                         db.collection("users").document(friendId).get()
