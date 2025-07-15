@@ -63,6 +63,26 @@ class UserProfile : AppCompatActivity() {
                 }
         }
 
+        binding.bottomBar.homeButton.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.bottomBar.calenderButton.setOnClickListener{
+
+        }
+        binding.bottomBar.cameraButton.setOnClickListener{
+
+        }
+        binding.bottomBar.socialButton.setOnClickListener{
+            val intent = Intent(this, FindFriendsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.bottomBar.userButton.setOnClickListener{
+
+        }
+
         var isEditing = false
 
         binding.editNameButton.setOnClickListener {

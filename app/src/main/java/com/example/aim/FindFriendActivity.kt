@@ -1,8 +1,11 @@
 package com.example.aim
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.aim.databinding.ActivityFindFriendsBinding
+import com.example.aim.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.SetOptions
@@ -22,17 +25,37 @@ class FindFriendsActivity : AppCompatActivity() {
     private var foundUserId: String? = null
     private val db = Firebase.firestore
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+    private lateinit var binding: ActivityFindFriendsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_find_friends)
+        binding = ActivityFindFriendsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         incomingRequestsContainer = findViewById(R.id.incoming_requests_container)
         loadIncomingFriendRequests()
 
         friendsContainer = findViewById(R.id.friends_container)
         loadFriends()
 
+        binding.bottomBar.homeButton.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.bottomBar.calenderButton.setOnClickListener{
 
+        }
+        binding.bottomBar.cameraButton.setOnClickListener{
+
+        }
+        binding.bottomBar.socialButton.setOnClickListener{
+
+        }
+        binding.bottomBar.userButton.setOnClickListener{
+            val intent = Intent(this, UserProfile::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         // Bind views
         searchInput = findViewById(R.id.search_input)
