@@ -4,29 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/aimlightgrey">
+    android:background="@color/aimlightgrey"
+    android:padding="20dp">
 
-    <Button
-        android:id="@+id/button_find_friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="64dp"
-        android:text="Find Friends" />
 
-    <Button
-        android:id="@+id/button_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Post" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/feed_rv"
-        tools:listitem="@layout/feed_item"
+        tools:listitem="@layout/feed_xitem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"/>
+    <include layout="@layout/activity_main_bottom_bar"
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>
 

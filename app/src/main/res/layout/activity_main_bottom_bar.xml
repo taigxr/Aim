@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    tools:context=".MainActivity"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_gravity="bottom"
+    android:background="?colorOnPrimary"
+    android:padding="6dp">
+
+    <ImageButton
+        android:id="@+id/home_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="null"
+        android:src="@drawable/ic_home"
+        android:scaleType="centerInside"
+        android:contentDescription="home">
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/calender_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="null"
+        android:src="@drawable/ic_calendar"
+        android:scaleType="centerInside"
+        android:contentDescription="calender">
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/camera_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="null"
+        android:src="@drawable/ic_camera"
+        android:scaleType="centerInside"
+        android:contentDescription="camera">
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/social_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="null"
+        android:src="@drawable/ic_social"
+        android:scaleType="centerInside"
+        android:contentDescription="social">
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/user_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="null"
+        android:src="@drawable/ic_user"
+        android:scaleType="centerInside"
+        android:contentDescription="user">
+    </ImageButton>
+
+
+
+
+</LinearLayout>

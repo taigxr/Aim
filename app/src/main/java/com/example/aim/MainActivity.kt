@@ -42,13 +42,24 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        // Example buttons (adjust IDs accordingly)
-        findViewById<Button>(R.id.button_find_friends).setOnClickListener {
-            startActivity(Intent(this, FindFriendsActivity::class.java))
+        binding.bottomBar.homeButton.setOnClickListener{
+
         }
-        findViewById<Button>(R.id.button_logout).setOnClickListener {
-            // Log out or go to post activity (adjust as needed)
-            startActivity(Intent(this, CreatePostActivity::class.java))
+        binding.bottomBar.calenderButton.setOnClickListener{
+
+        }
+        binding.bottomBar.cameraButton.setOnClickListener{
+
+        }
+        binding.bottomBar.socialButton.setOnClickListener{
+            val intent = Intent(this, FindFriendsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.bottomBar.userButton.setOnClickListener{
+            val intent = Intent(this, UserProfile::class.java)
+            startActivity(intent)
+            finish()
         }
 
         loadFriendsPosts()
